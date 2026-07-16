@@ -1,0 +1,16 @@
+# Product FAQ — Citebase Demo
+
+Q: What is Citebase?
+A: Citebase is a document Q&A demo that indexes uploaded files and answers questions with citations.
+
+Q: Which file types are supported?
+A: PDF, plain text (.txt), and Markdown (.md) up to 10 MB each.
+
+Q: How does retrieval work?
+A: Hybrid search combines BM25 full-text ranking with Voyage embedding cosine similarity, fused via Reciprocal Rank Fusion (RRF).
+
+Q: Which models power answers?
+A: Chat uses google/gemini-2.5-flash. Embeddings use voyage/voyage-4-lite (1024 dimensions), both via the Vercel AI Gateway.
+
+Q: What happens when nothing is relevant?
+A: The assistant should refuse to invent library facts and explain that no supporting passage was found.
