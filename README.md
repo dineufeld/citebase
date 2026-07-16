@@ -65,7 +65,7 @@ Postgres (pgvector)
   collections → documents → chunks(embedding vector(1024), search_vector tsvector)
 ```
 
-**Ingest path:** multipart upload → local `storage/{id}/` → `pdf-parse` or UTF-8 text → paragraph chunker → Voyage embeddings via AI Gateway → insert chunks → `to_tsvector` for BM25.
+**Ingest path:** multipart upload → local `storage/{id}/` in development or private Vercel Blob in production → `pdfjs-dist` (PDF) or UTF-8 text (TXT/MD) → paragraph chunker → Voyage embeddings via AI Gateway → insert chunks → `to_tsvector` for BM25.
 
 **Query path:** last user message → embed query → BM25 ∥ vector (timeouts) → RRF fuse → top 6 passages into system prompt → stream UI message protocol → client renders citation chips from `data-sources` part.
 
@@ -88,7 +88,7 @@ Postgres (pgvector)
 
 | Concern | MVP (now) | Production |
 |---|---|---|
-| File storage | Local `storage/` | S3 / GCS / Azure Blob / R2 + virus scan |
+| File storage | Local `storage/` or private Vercel Blob | S3 / GCS / Azure Blob / R2 + virus scan |
 | Ingest | Sync in request (`maxDuration` 60s) | Queue (SQS / Pub/Sub / Cloudflare Queues) + workers; retry + DLQ |
 | Database | Single Docker/Neon Postgres | Managed Postgres with pgvector, connection pooler (PgBouncer), read replicas for search if needed |
 | Auth / tenancy | None (single default collection) | Auth.js/Clerk + per-user `collection_id` RLS |
@@ -146,7 +146,7 @@ Hyper-scaler sketch: **Cloudflare R2** (files) + **Neon/Aurora pgvector** (index
 
 1. **Greenfield, not a fork of a multi-host product** — reviewers get a readable repo.
 2. **Sync ingest for MVP** — simplest demo path; documented as the first production debt.
-3. **Filesystem blobs** — no cloud credentials required for local demo.
+3. **Filesystem locally, private Vercel Blob when deployed** — no cloud credentials required for local demo while production uploads persist across serverless invocations.
 4. **Single default collection** — schema supports more; UI doesn’t.
 5. **AI Gateway only** — no direct Google/Voyage keys in the app.
 6. **Custom `data-sources` UI stream part** for citation chips without parsing model prose.

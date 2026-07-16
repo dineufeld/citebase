@@ -45,3 +45,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Provisioning CLIs may install local agent skills.
+/.agents/
+/.claude/
+/.hermes/skills/
+/skills-lock.json

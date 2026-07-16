@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
-import { rm } from 'fs/promises';
-import path from 'path';
 import { db } from '@/lib/db';
 import { documents, chunks } from '@/lib/db/schema';
+import { deleteDocumentFile } from '@/lib/storage/document-storage';
 
 export const runtime = 'nodejs';
 
@@ -32,8 +31,7 @@ export async function DELETE(
 
     // Best-effort file cleanup
     try {
-      const dir = path.dirname(doc.storagePath);
-      await rm(dir, { recursive: true, force: true });
+      await deleteDocumentFile(doc.storagePath);
     } catch {
       // ignore
     }

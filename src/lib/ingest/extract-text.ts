@@ -1,22 +1,14 @@
+import type { ExtractResult } from './extract-pdf';
+export type { ExtractResult } from './extract-pdf';
+export { normalizeText } from './extract-text-shared';
+
+import { normalizeText } from './extract-text-shared';
+
 export class UnsupportedTypeError extends Error {
   constructor(message: string) {
     super(message);
     this.name = 'UnsupportedTypeError';
   }
-}
-
-export type ExtractResult = {
-  text: string;
-  pageCount?: number;
-};
-
-function normalizeText(raw: string): string {
-  return raw
-    .replace(/\0/g, '')
-    .replace(/\r\n/g, '\n')
-    .replace(/[ \t]+\n/g, '\n')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
 }
 
 function extOf(filename: string): string {
@@ -37,8 +29,7 @@ export async function extractText(input: {
   const ext = extOf(filename);
   const mime = (mimeType || '').toLowerCase();
 
-  const isPdf =
-    mime === 'application/pdf' || ext === 'pdf';
+  const isPdf = mime === 'application/pdf' || ext === 'pdf';
   const isText =
     mime.startsWith('text/') ||
     mime === 'application/octet-stream' ||
@@ -47,21 +38,8 @@ export async function extractText(input: {
     ext === 'markdown';
 
   if (isPdf) {
-    const { PDFParse } = await import('pdf-parse');
-    const parser = new PDFParse({ data: new Uint8Array(buffer) });
-    try {
-      const result = await parser.getText();
-      const text = normalizeText(result?.text ?? '');
-      if (!text) {
-        throw new Error('PDF produced no extractable text (scanned image?).');
-      }
-      return {
-        text,
-        pageCount: result?.total ?? result?.pages?.length,
-      };
-    } finally {
-      await parser.destroy().catch(() => undefined);
-    }
+    const { extractPdfText } = await import('./extract-pdf');
+    return extractPdfText(buffer);
   }
 
   if (isText || ext === 'txt' || ext === 'md' || ext === 'markdown') {

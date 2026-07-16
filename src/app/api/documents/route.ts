@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import { mkdir, writeFile } from 'fs/promises';
-import path from 'path';
 import { desc, eq } from 'drizzle-orm';
 import { db } from '@/lib/db';
 import { documents } from '@/lib/db/schema';
 import { ensureDefaultCollection } from '@/lib/db/default-collection';
 import { processDocument } from '@/lib/ingest/process-document';
+import { deleteDocumentFile, saveDocumentFile } from '@/lib/storage/document-storage';
 import type { DocumentDTO } from '@/types';
 
 export const runtime = 'nodejs';
@@ -78,26 +77,33 @@ export async function POST(req: Request) {
 
     const collectionId = await ensureDefaultCollection();
     const id = crypto.randomUUID();
-    const dir = path.join(process.cwd(), 'storage', id);
-    await mkdir(dir, { recursive: true });
-    const storagePath = path.join(dir, filename);
     const buffer = Buffer.from(await file.arrayBuffer());
-    await writeFile(storagePath, buffer);
-
     const mimeType = file.type || guessMime(ext);
+    const storagePath = await saveDocumentFile({
+      documentId: id,
+      filename,
+      mimeType,
+      buffer,
+    });
 
-    const [row] = await db
-      .insert(documents)
-      .values({
-        id,
-        collectionId,
-        filename,
-        mimeType,
-        byteSize: buffer.byteLength,
-        storagePath,
-        status: 'pending',
-      })
-      .returning();
+    let row: typeof documents.$inferSelect;
+    try {
+      [row] = await db
+        .insert(documents)
+        .values({
+          id,
+          collectionId,
+          filename,
+          mimeType,
+          byteSize: buffer.byteLength,
+          storagePath,
+          status: 'pending',
+        })
+        .returning();
+    } catch (insertErr) {
+      await deleteDocumentFile(storagePath).catch(() => undefined);
+      throw insertErr;
+    }
 
     // MVP: process inline (sync). Production would enqueue a worker.
     try {

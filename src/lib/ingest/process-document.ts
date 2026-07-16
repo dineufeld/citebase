@@ -1,8 +1,8 @@
 import { eq, sql } from 'drizzle-orm';
-import { readFile } from 'fs/promises';
 import { db } from '@/lib/db';
 import { chunks, documents } from '@/lib/db/schema';
 import { embedTexts } from '@/lib/ai/gateway';
+import { readDocumentFile } from '@/lib/storage/document-storage';
 import { extractText } from './extract-text';
 import { chunkText } from './chunk';
 
@@ -23,7 +23,7 @@ export async function processDocument(documentId: string): Promise<void> {
     .where(eq(documents.id, documentId));
 
   try {
-    const buffer = await readFile(doc.storagePath);
+    const buffer = await readDocumentFile(doc.storagePath);
     const { text, pageCount } = await extractText({
       buffer,
       mimeType: doc.mimeType,
