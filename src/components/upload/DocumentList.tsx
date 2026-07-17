@@ -17,20 +17,6 @@ function formatBytes(n: number): string {
   return `${(n / (1024 * 1024)).toFixed(1)} MB`;
 }
 
-function fileIcon(filename: string) {
-  if (/\.pdf$/i.test(filename)) return 'PDF';
-  if (/\.txt$/i.test(filename)) return 'TXT';
-  if (/\.md$/i.test(filename)) return 'MD';
-  return 'DOC';
-}
-
-function fileColor(filename: string) {
-  if (/\.pdf$/i.test(filename)) return 'border-red-500/30 text-red-400 bg-red-500/10';
-  if (/\.txt$/i.test(filename)) return 'border-blue-500/30 text-blue-400 bg-blue-500/10';
-  if (/\.md$/i.test(filename)) return 'border-amber-500/30 text-amber-400 bg-amber-500/10';
-  return 'border-[var(--border)] text-[var(--text-muted)] bg-[var(--surface-1)]';
-}
-
 function SkeletonRow() {
   return (
     <li className="rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-3 py-2.5">
@@ -85,34 +71,22 @@ export function DocumentList({ documents, onDelete, loading }: Props) {
           key={doc.id}
           className="group rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-3 py-2 transition hover:bg-[var(--surface-hover)]"
         >
-          <div className="flex items-center gap-2.5">
-            <span
-              className={`inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border text-[10px] font-bold tracking-wide ${fileColor(doc.filename)}`}
-            >
-              {fileIcon(doc.filename)}
-            </span>
+          <div className="flex items-center gap-2">
             <div className="min-w-0 flex-1">
-              <div className="flex items-center justify-between gap-1.5">
-                <p className="truncate text-sm font-medium text-[var(--text)]">{doc.filename}</p>
-                <span className="shrink-0">
-                  <Badge tone={statusTone(doc.status)}>
-                    {doc.status === 'ready' && (
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-3 w-3" aria-hidden>
-                        <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                    {(doc.status === 'processing' || doc.status === 'pending') && (
-                      <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-300" />
-                    )}
-                    {doc.status === 'processing' ? 'Processing' : doc.status === 'pending' ? 'Queued' : doc.status === 'failed' ? 'Failed' : ''}
-                  </Badge>
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-[11px] text-[var(--text-muted)]">
-                <span>{formatBytes(doc.byteSize)}</span>
-                {doc.pageCount != null && <span>· {doc.pageCount}p</span>}
-              </div>
+              <p className="truncate text-sm font-medium text-[var(--text)]">{doc.filename}</p>
+              <p className="mt-0.5 text-[11px] text-[var(--text-muted)]">
+                {formatBytes(doc.byteSize)}
+                {doc.pageCount != null ? ` · ${doc.pageCount}p` : ''}
+              </p>
             </div>
+            <span className="shrink-0">
+              <Badge tone={statusTone(doc.status)}>
+                {(doc.status === 'processing' || doc.status === 'pending') && (
+                  <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-300" />
+                )}
+                {doc.status === 'ready' ? 'Ready' : doc.status}
+              </Badge>
+            </span>
             <button
               type="button"
               aria-label={`Delete ${doc.filename}`}
