@@ -31,7 +31,7 @@ npm run db:setup       # apply schema + seed default collection
 npm run dev            # http://localhost:3001
 ```
 
-Open **http://localhost:3001/app**, upload files from `fixtures/`, ask e.g. *“How many PTO days do employees get?”*
+Open **http://localhost:3001/**, upload files from `fixtures/`, ask e.g. *“How many PTO days do employees get?”*
 
 ### Useful scripts
 

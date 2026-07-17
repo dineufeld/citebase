@@ -6,9 +6,18 @@ import { Button } from '@/components/ui/primitives';
 type Props = {
   onUploaded: () => void;
   disabled?: boolean;
+  variant?: 'panel' | 'button';
+  label?: string;
+  className?: string;
 };
 
-export function Dropzone({ onUploaded, disabled }: Props) {
+export function Dropzone({
+  onUploaded,
+  disabled,
+  variant = 'panel',
+  label = 'Upload documents',
+  className,
+}: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -48,6 +57,36 @@ export function Dropzone({ onUploaded, disabled }: Props) {
     },
     [upload],
   );
+
+  if (variant === 'button') {
+    return (
+      <div className={className}>
+        <Button
+          type="button"
+          disabled={disabled || busy}
+          onClick={() => inputRef.current?.click()}
+        >
+          {busy ? 'Indexing…' : label}
+        </Button>
+        <input
+          ref={inputRef}
+          type="file"
+          accept=".pdf,.txt,.md,application/pdf,text/plain,text/markdown"
+          multiple
+          className="hidden"
+          onChange={(e) => {
+            void onFiles(e.target.files);
+            e.target.value = '';
+          }}
+        />
+        {error && (
+          <p className="mt-2 text-xs text-[var(--danger)]" role="alert">
+            {error}
+          </p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-2">
