@@ -93,7 +93,7 @@ export function DocumentList({ documents, onDelete, loading }: Props) {
             <button
               type="button"
               aria-label={`Delete ${doc.filename}`}
-              className="shrink-0 rounded-lg p-1 text-[var(--text-muted)] transition hover:bg-red-500/10 hover:text-[var(--danger)] focus-visible:opacity-100"
+              className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border border-[var(--border)] bg-transparent text-[var(--text-muted)] transition hover:border-[var(--danger)]/30 hover:bg-red-500/10 hover:text-[var(--danger)]"
               onClick={() => {
                 if (window.confirm(`Delete “${doc.filename}”? This cannot be undone.`)) {
                   onDelete(doc.id);
