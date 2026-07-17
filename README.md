@@ -19,19 +19,30 @@ This is a fullstack interview assignment (Option 1: classic RAG). Built as a sma
 ### Install & run
 
 ```bash
-git clone <your-fork-url> citebase
+git clone https://github.com/dineufeld/citebase.git
 cd citebase
 npm install
 
 cp .env.example .env.local
-# edit .env.local — set AI_GATEWAY_API_KEY
+# edit .env.local — set AI_GATEWAY_API_KEY (and DATABASE_URL if not using local Docker)
 
 npm run db:up          # Postgres+pgvector on localhost:5433
 npm run db:setup       # apply schema + seed default collection
 npm run dev            # http://localhost:3001
 ```
 
-Open **http://localhost:3001/**, upload files from `fixtures/`, ask e.g. *“How many PTO days do employees get?”*
+Open **http://localhost:3001/**, upload files from `fixtures/`, ask e.g. “How many PTO days do employees get?”
+
+### Screenshots
+
+![Landing / about](public/screenshots/01-landing.png)
+
+![Empty workspace](public/screenshots/02-workspace-empty.png)
+
+![Library ready](public/screenshots/03-library-ready.png)
+
+![Chat with citations](public/screenshots/04-chat-citations.png)
+
 
 ### Useful scripts
 
