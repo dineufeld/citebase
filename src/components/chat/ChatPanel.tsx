@@ -7,6 +7,7 @@ import type { ReactNode } from 'react';
 import { IconPaperclip } from '@/components/ui/icons';
 import { Button } from '@/components/ui/primitives';
 import { CitationList } from '@/components/chat/CitationChip';
+import { MarkdownContent } from '@/components/chat/MarkdownContent';
 import { SuggestedPrompts } from '@/components/chat/SuggestedPrompts';
 import type { CitationSource } from '@/types';
 
@@ -159,7 +160,11 @@ export function ChatPanel({ readyCount, emptyState, onPickFiles, filesBusy }: Pr
                     : 'bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)]'
                 }`}
               >
-                <p className="whitespace-pre-wrap">{text}</p>
+                {isUser ? (
+                  <p className="whitespace-pre-wrap">{text}</p>
+                ) : (
+                  <MarkdownContent text={text} />
+                )}
                 {!isUser && <CitationList sources={sources} />}
               </div>
             </div>
