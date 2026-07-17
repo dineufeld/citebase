@@ -50,4 +50,5 @@ next-env.d.ts
 /.agents/
 /.claude/
 /.hermes/skills/
+/.hermes/plans/
 /skills-lock.json
