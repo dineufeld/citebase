@@ -35,7 +35,7 @@ export function Badge({
 }) {
   const tones = {
     neutral: 'bg-[var(--surface-hover)] text-[var(--text-muted)] border-[var(--border-soft)]',
-    ok: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+    ok: 'bg-[var(--accent-dim)] text-[var(--accent)] border-[var(--accent)]/30',
     warn: 'bg-amber-500/15 text-amber-200 border-amber-500/30',
     danger: 'bg-red-500/15 text-red-300 border-red-500/30',
     accent: 'bg-[var(--accent-dim)] text-[var(--accent)] border-[var(--accent)]/30',

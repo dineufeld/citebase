@@ -96,10 +96,15 @@ export function DocumentList({ documents, onDelete, loading }: Props) {
                 <p className="truncate text-sm font-medium text-[var(--text)]">{doc.filename}</p>
                 <span className="shrink-0">
                   <Badge tone={statusTone(doc.status)}>
+                    {doc.status === 'ready' && (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="h-3 w-3" aria-hidden>
+                        <path d="M20 6L9 17l-5-5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    )}
                     {(doc.status === 'processing' || doc.status === 'pending') && (
                       <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-amber-300" />
                     )}
-                    {doc.status}
+                    {doc.status === 'processing' ? 'Processing' : doc.status === 'pending' ? 'Queued' : doc.status === 'failed' ? 'Failed' : ''}
                   </Badge>
                 </span>
               </div>
