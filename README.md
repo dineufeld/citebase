@@ -49,8 +49,9 @@ Open **http://localhost:3001/**, upload files from `fixtures/`, ask e.g. “How 
 | Script | Purpose |
 |---|---|
 | `npm run typecheck` | `tsc --noEmit` |
+| `npm test` | `vitest run` — 35 pure unit tests (chunk, fusion, prompts, MIME detection, upload validation) |
 | `npm run check:chunker` | pure unit assertions (chunk + RRF) |
-| `npm run smoke:rag` | DB health + optional hybrid probe |
+| `npm run smoke:rag` | DB health + hybrid probe + golden/delete/refuse integration probes |
 | `npm run db:down` | stop local Postgres |
 
 ### Demo questions (with fixtures)

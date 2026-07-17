@@ -6,12 +6,10 @@ import { ensureDefaultCollection } from '@/lib/db/default-collection';
 import { processDocument } from '@/lib/ingest/process-document';
 import { deleteDocumentFile, saveDocumentFile } from '@/lib/storage/document-storage';
 import type { DocumentDTO } from '@/types';
+import { isAllowedUpload, MAX_UPLOAD_BYTES as MAX_BYTES, safeFilename } from '@/lib/upload/validation';
 
 export const runtime = 'nodejs';
 export const maxDuration = 60;
-
-const MAX_BYTES = 10 * 1024 * 1024;
-const ALLOWED_EXT = new Set(['pdf', 'txt', 'md', 'markdown']);
 
 function toDTO(row: typeof documents.$inferSelect): DocumentDTO {
   return {
@@ -25,10 +23,6 @@ function toDTO(row: typeof documents.$inferSelect): DocumentDTO {
     createdAt: row.createdAt.toISOString(),
     updatedAt: row.updatedAt.toISOString(),
   };
-}
-
-function safeFilename(name: string): string {
-  return name.replace(/[^a-zA-Z0-9._-]+/g, '_').slice(0, 180) || 'upload.bin';
 }
 
 export async function GET() {
@@ -68,7 +62,7 @@ export async function POST(req: Request) {
     const ext = filename.includes('.')
       ? filename.slice(filename.lastIndexOf('.') + 1).toLowerCase()
       : '';
-    if (!ALLOWED_EXT.has(ext)) {
+    if (!isAllowedUpload(filename)) {
       return NextResponse.json(
         { error: 'Only .pdf, .txt, and .md files are supported' },
         { status: 400 },
