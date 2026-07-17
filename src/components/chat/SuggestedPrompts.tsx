@@ -26,7 +26,7 @@ export function SuggestedPrompts({ onSelect, prompts = DEFAULTS }: Props) {
             <button
               type="button"
               onClick={() => onSelect(p)}
-              className="w-full rounded-xl border border-[var(--border)] bg-black/20 px-3 py-2.5 text-left text-sm text-[var(--text)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--accent-dim)]"
+              className="w-full rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-3 py-2.5 text-left text-sm text-[var(--text)] transition hover:border-[var(--accent)]/40 hover:bg-[var(--accent-dim)]"
             >
               {p}
             </button>

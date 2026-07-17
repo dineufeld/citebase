@@ -49,6 +49,14 @@ Open **http://localhost:3001/**, upload files from `fixtures/`, ask e.g. *“How
 3. “Which embedding model does Citebase use?” (from `faq.txt`)
 4. “What is our CEO’s favorite color?” → should refuse / not invent from corpus
 
+### Theme
+
+Default theme is **light**. Toggle to **black** via the sun/moon button in the
+header (available on `/`, `/app`, and `/about`). Preference is stored in
+`localStorage.cb-theme` (`'dark'` or absent). On first visit, the app honors
+`prefers-color-scheme: dark` so dark-mode OS users see the dark theme without
+a flash.
+
 ---
 
 ## b. Architecture overview

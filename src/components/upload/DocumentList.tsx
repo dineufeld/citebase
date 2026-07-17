@@ -43,7 +43,7 @@ export function DocumentList({ documents, onDelete, loading }: Props) {
       {documents.map((doc) => (
         <li
           key={doc.id}
-          className="group rounded-xl border border-[var(--border)] bg-black/20 px-3 py-2 transition hover:bg-white/[0.03]"
+          className="group rounded-xl border border-[var(--border)] bg-[var(--surface-1)] px-3 py-2 transition hover:bg-[var(--surface-hover)]"
         >
           <div className="flex items-center gap-2">
             <div className="min-w-0 flex-1">

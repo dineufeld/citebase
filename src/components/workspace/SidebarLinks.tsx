@@ -19,7 +19,7 @@ export function SidebarLinks() {
           <li key={l.href + l.label}>
             <Link
               href={l.href}
-              className="block rounded-lg px-2 py-1.5 text-xs text-[var(--text-muted)] hover:bg-white/5 hover:text-[var(--text)]"
+              className="block rounded-lg px-2 py-1.5 text-xs text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
               {...(/^https?:/.test(l.href) ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
             >
               {l.label}

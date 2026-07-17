@@ -1,17 +1,48 @@
 @import "tailwindcss";
 
 :root {
+  /* Light theme — default */
+  --bg: #fafaf9;
+  --bg-elevated: #ffffff;
+  --surface-1: #f4f4f5;
+  --surface-2: #ffffff;
+  --surface-hover: rgba(10, 10, 15, 0.04);
+  --border: rgba(10, 10, 15, 0.10);
+  --border-soft: rgba(10, 10, 15, 0.06);
+  --text: #0a0a0c;
+  --text-muted: #52525b;
+  --accent: #0d9488;
+  --accent-dim: rgba(13, 148, 136, 0.18);
+  --accent-glow: rgba(13, 148, 136, 0.28);
+  --primary-bg: #0d9488;
+  --primary-text: #ffffff;
+  --danger: #b91c1c;
+  --backdrop: rgba(15, 15, 20, 0.45);
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --radius: 12px;
+  --background: var(--bg);
+  --foreground: var(--text);
+}
+
+:root[data-theme="dark"] {
+  /* Black theme — optional toggle */
   --bg: #07070a;
   --bg-elevated: #0e0e12;
+  --surface-1: rgba(255, 255, 255, 0.04);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-hover: rgba(255, 255, 255, 0.05);
   --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.10);
   --text: #f4f4f5;
   --text-muted: #a1a1aa;
   --accent: #34d399;
   --accent-dim: rgba(52, 211, 153, 0.15);
+  --accent-glow: rgba(52, 211, 153, 0.18);
+  --primary-bg: #34d399;
+  --primary-text: #042f1a;
   --danger: #f87171;
-  --radius: 12px;
-  --background: var(--bg);
-  --foreground: var(--text);
+  --backdrop: rgba(0, 0, 0, 0.60);
+  --shadow-card: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 24px 48px rgba(0, 0, 0, 0.35);
 }
 
 @theme inline {
@@ -34,13 +65,19 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
-  /* Never use italic — synthetic slant degrades small text */
   font-style: normal;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
   background: var(--accent-dim);
   color: var(--text);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
 @keyframes citebase-fade-in {

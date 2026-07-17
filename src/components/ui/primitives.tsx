@@ -13,9 +13,9 @@ export function Button({
     'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] disabled:opacity-50 disabled:pointer-events-none';
   const variants = {
     primary:
-      'bg-[var(--accent)] text-[#042f1a] hover:brightness-110 shadow-[0_0_24px_var(--accent-dim)]',
+      'bg-[var(--primary-bg)] text-[var(--primary-text)] hover:brightness-110 shadow-[0_0_24px_var(--accent-dim)]',
     ghost:
-      'bg-transparent text-[var(--text)] border border-[var(--border)] hover:bg-white/5',
+      'bg-transparent text-[var(--text)] border border-[var(--border)] hover:bg-[var(--surface-hover)]',
     danger:
       'bg-transparent text-[var(--danger)] border border-[var(--danger)]/30 hover:bg-[var(--danger)]/10',
   };
@@ -34,7 +34,7 @@ export function Badge({
   tone?: 'neutral' | 'ok' | 'warn' | 'danger' | 'accent';
 }) {
   const tones = {
-    neutral: 'bg-white/5 text-[var(--text-muted)] border-white/10',
+    neutral: 'bg-[var(--surface-hover)] text-[var(--text-muted)] border-[var(--border-soft)]',
     ok: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
     warn: 'bg-amber-500/15 text-amber-200 border-amber-500/30',
     danger: 'bg-red-500/15 text-red-300 border-red-500/30',

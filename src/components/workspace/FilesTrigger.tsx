@@ -15,7 +15,7 @@ export function FilesTrigger({ count, onClick, buttonRef }: Props) {
       ref={buttonRef}
       type="button"
       onClick={onClick}
-      className="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-3 py-1.5 text-xs font-medium text-[var(--text)] hover:bg-white/5 lg:hidden"
+      className="inline-flex items-center gap-2 rounded-xl border border-[var(--border)] bg-transparent px-3 py-1.5 text-xs font-medium text-[var(--text)] hover:bg-[var(--surface-hover)] lg:hidden"
     >
       <IconFolder className="h-3.5 w-3.5" />
       Files

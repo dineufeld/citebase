@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button, Card } from '@/components/ui/primitives';
+import { AboutHeaderActions } from '@/components/workspace/AboutHeaderActions';
 
 export default function AboutPage() {
   return (
@@ -9,7 +10,7 @@ export default function AboutPage() {
         className="pointer-events-none absolute inset-0 opacity-40"
         style={{
           background:
-            'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(52,211,153,0.18), transparent 60%)',
+            'radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent 60%)',
         }}
       />
 
@@ -20,9 +21,7 @@ export default function AboutPage() {
           </span>
           <span className="text-sm font-semibold tracking-tight">Citebase</span>
         </Link>
-        <Link href="/">
-          <Button variant="ghost">Start chatting</Button>
-        </Link>
+        <AboutHeaderActions />
       </header>
 
       <main className="relative z-10 mx-auto max-w-5xl px-4 pb-20 pt-10 md:pt-16">

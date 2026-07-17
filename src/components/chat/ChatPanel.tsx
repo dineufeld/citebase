@@ -130,7 +130,7 @@ export function ChatPanel({ readyCount, emptyState, onPickFiles, filesBusy }: Pr
           <SuggestedPrompts onSelect={(text) => setInput(text)} />
         )}
         {messages.length === 0 && !emptyState && !canChat && (
-          <div className="rounded-xl border border-dashed border-[var(--border)] bg-black/20 px-4 py-8 text-center">
+          <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface-1)] px-4 py-8 text-center">
             <p className="text-sm font-medium text-[var(--text)]">
               Grounded answers with citations
             </p>
@@ -156,7 +156,7 @@ export function ChatPanel({ readyCount, emptyState, onPickFiles, filesBusy }: Pr
                 className={`max-w-[min(42rem,90%)] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                   isUser
                     ? 'bg-[var(--accent-dim)] text-[var(--text)] border border-[var(--accent)]/25'
-                    : 'bg-white/[0.04] text-[var(--text)] border border-[var(--border)]'
+                    : 'bg-[var(--surface-2)] text-[var(--text)] border border-[var(--border)]'
                 }`}
               >
                 <p className="whitespace-pre-wrap">{text}</p>
@@ -181,14 +181,14 @@ export function ChatPanel({ readyCount, emptyState, onPickFiles, filesBusy }: Pr
         onSubmit={onSubmit}
         className="shrink-0 border-t border-[var(--border)] bg-[var(--bg-elevated)]/70 px-3 py-3 backdrop-blur sm:px-4"
       >
-        <div className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-[var(--border)] bg-black/30 p-1.5 focus-within:border-[var(--accent)]/50 focus-within:ring-2 focus-within:ring-[var(--accent)]/15">
+        <div className="mx-auto flex max-w-3xl items-end gap-2 rounded-2xl border border-[var(--border)] bg-[var(--surface-1)] p-1.5 focus-within:border-[var(--accent)]/50 focus-within:ring-2 focus-within:ring-[var(--accent)]/15">
           {onPickFiles && (
             <button
               type="button"
               onClick={onPickFiles}
               disabled={isLoading || !!filesBusy}
               aria-label="Attach files"
-              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:bg-white/5 disabled:opacity-50"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-[var(--border)] text-[var(--text-muted)] hover:bg-[var(--surface-hover)] disabled:opacity-50"
             >
               <IconPaperclip className="h-4 w-4" />
             </button>

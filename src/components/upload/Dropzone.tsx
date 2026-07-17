@@ -105,7 +105,7 @@ export function Dropzone({
         className={`rounded-2xl border-2 border-dashed px-4 py-8 text-center transition ${
           dragging
             ? 'border-[var(--accent)] bg-[var(--accent-dim)]'
-            : 'border-[var(--border)] bg-black/20'
+            : 'border-[var(--border)] bg-[var(--surface-1)]'
         }`}
       >
         <p className="text-sm font-medium text-[var(--text)]">Drop documents here</p>

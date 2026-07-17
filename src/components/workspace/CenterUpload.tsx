@@ -7,7 +7,7 @@ type Props = { onUploaded: () => void };
 
 export function CenterUpload({ onUploaded }: Props) {
   return (
-    <div className="mx-auto w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-6 py-8 text-center shadow-[0_0_0_1px_rgba(255,255,255,0.02),0_24px_48px_rgba(0,0,0,0.35)]">
+    <div className="mx-auto w-full max-w-md rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-6 py-8 text-center shadow-[var(--shadow-card)]">
       <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--accent-dim)] text-[var(--accent)]">
         <IconUpload className="h-5 w-5" />
       </div>

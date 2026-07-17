@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sidebar } from './Sidebar';
 import { CenterUpload } from './CenterUpload';
 import { FilesTrigger } from './FilesTrigger';
+import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { ChatPanel } from '@/components/chat/ChatPanel';
 import type { DocumentDTO } from '@/types';
 
@@ -116,11 +117,14 @@ export function Workspace() {
           </span>
           <span className="text-sm font-semibold tracking-tight">Citebase</span>
         </Link>
-        <FilesTrigger
-          count={documents.length}
-          onClick={() => setFlyoutOpen(true)}
-          buttonRef={filesTriggerRef}
-        />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <FilesTrigger
+            count={documents.length}
+            onClick={() => setFlyoutOpen(true)}
+            buttonRef={filesTriggerRef}
+          />
+        </div>
       </header>
 
       {uploadError && (
@@ -149,7 +153,7 @@ export function Workspace() {
               type="button"
               aria-label="Close files"
               onClick={closeFlyout}
-              className="flyout-fade absolute inset-0 bg-black/60"
+              className="flyout-fade absolute inset-0 bg-[var(--backdrop)]"
             />
             <div className="flyout-panel relative z-50 h-full">
               <Sidebar

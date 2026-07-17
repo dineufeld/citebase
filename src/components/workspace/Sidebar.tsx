@@ -29,7 +29,7 @@ export function Sidebar({ documents, loading, onDelete, onClose, variant }: Prop
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md p-1 text-[var(--text-muted)] hover:bg-white/5"
+            className="rounded-md p-1 text-[var(--text-muted)] hover:bg-[var(--surface-hover)]"
             aria-label="Close files"
           >
             <IconX className="h-4 w-4" />
