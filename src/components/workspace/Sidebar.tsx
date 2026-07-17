@@ -25,20 +25,27 @@ export function Sidebar({ documents, loading, onDelete, onClose, variant }: Prop
     <aside className={containerClass} aria-label="Files sidebar">
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold">Library</h2>
-        {isFlyout && onClose && (
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-md p-1 text-[var(--text-muted)] hover:bg-[var(--surface-hover)]"
-            aria-label="Close files"
-          >
-            <IconX className="h-4 w-4" />
-          </button>
-        )}
+        <div className="flex items-center gap-2">
+          <span className="rounded-md bg-[var(--surface-1)] px-1.5 py-0.5 text-[10px] font-medium text-[var(--text-muted)]">
+            {documents.length}
+          </span>
+          {isFlyout && onClose && (
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md p-1 text-[var(--text-muted)] hover:bg-[var(--surface-hover)]"
+              aria-label="Close files"
+            >
+              <IconX className="h-4 w-4" />
+            </button>
+          )}
+        </div>
       </div>
-      <p className="text-xs text-[var(--text-muted)]">
-        {readyCount} ready · {documents.length} total
-      </p>
+      {readyCount > 0 && (
+        <p className="text-xs text-[var(--text-muted)]">
+          {readyCount} ready · {documents.length - readyCount} pending
+        </p>
+      )}
       <div className="min-h-0 flex-1">
         <DocumentList documents={documents} onDelete={onDelete} loading={loading} />
       </div>
