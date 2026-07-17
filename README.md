@@ -196,34 +196,53 @@ Hyper-scaler sketch: **Cloudflare R2** (files) + **Neon/Aurora pgvector** (index
 
 ## g. How I used AI coding tools
 
-I used AI assistants heavily for scaffolding and repetitive UI, then **manually owned**:
+I build with AI agents daily (scaffolding, refactors, UI polish, type-error sweeps). For this assignment I treated them the same way I do on production work: **fast on the boring path, slow on the load-bearing path.**
 
-- Retrieval fusion correctness and timeouts
-- Prompt / refuse-empty behavior
-- Security boundaries (what runs server-side, env handling)
-- README trade-offs (this section — written as my decisions, not a generic essay)
+What I let the assistant draft freely:
+- Next.js / Tailwind boilerplate, layout chrome, theme toggle wiring
+- README skeleton and package scripts
+- Mechanical “make the typechecker happy” fixes after API shape changes
 
-**Do’s:** generate boilerplate, ask for alternative designs, use agents for typeerror sweeps.  
-**Don’ts:** ship unreviewed auth/security, paste opaque LangChain stacks I can’t debug, let the model invent architecture that doesn’t match the repo.
+What I did **not** outsource blindly:
+- **Retrieval design** — hybrid BM25 + vector + RRF, timeouts, and BM25 fallback come from patterns I’ve already run in production (website RAG / chatbot indexing), not from a LangChain tutorial dump
+- **Ingest failure modes** — empty PDF text, zero embeddings, status `failed` vs silent success
+- **Prompt + refuse path** — empty library must not invent handbook facts; I verified that live
+- **What ships in the repo** — no secrets, no private monorepo code, no “five-host” complexity reviewers can’t run
+
+**Do’s for me**
+- Start from a working vertical slice (upload → index → one good answer) before UI polish
+- Re-read every retrieval / prompt / env boundary myself before calling it done
+- Prefer thin TypeScript modules I can debug at 2am over a framework graph I can’t
+
+**Don’ts**
+- Don’t paste an orchestration framework I wouldn’t maintain
+- Don’t accept a “green typecheck” as product-complete — I re-check the actual chat path and residual DoD (screenshots, clone URL, empty-corpus behavior)
+- Don’t let the model write the final *why* in the README without me editing it into my own trade-offs
+
+Net: AI accelerated the build; the architecture and the “what I would ship to a customer” judgment are mine.
 
 ---
 
 ## h. What I’d do with more time
 
-1. Async ingest worker + progress UI that survives refresh  
-2. OCR path (e.g. Docling / cloud Vision) for scanned PDFs  
-3. Table-aware PDF extraction  
-4. Multi-collection + auth  
-5. Cross-encoder re-rank  
-6. Offline eval pack with citation precision/recall  
-7. Deployed Vercel preview + Neon branch in README  
-8. Message-level source highlighting in the original file viewer  
+Ordered by what would actually move quality for a real user, not a longer bullet list:
+
+1. **Async ingest + durable progress** — sync-in-request is fine for fixtures; multi-MB PDFs need a queue, retries, and a UI that survives refresh  
+2. **Eval set before more models** — 20–30 fixed questions over the fixtures + a small “should refuse” set; measure citation hit-rate and groundedness before swapping Gemini/Voyage  
+3. **Trim noisy citations** — today we surface the fused top-k chips; I’d dedupe by document and only show chips the model actually referenced (`[1]`, `[2]`)  
+4. **OCR + better PDF layout** — scanned policies and multi-column PDFs are the real-world failure mode  
+5. **Auth + multi-collection** — the schema already has `collections`; wire users only after the single-workspace path is boringly solid  
+6. **Re-ranker (optional)** — only if eval shows hybrid misses on paraphrases; I wouldn’t add it “because SOTA”  
+7. **Deployed preview** — Vercel + Neon branch in the README so reviewers don’t need Docker  
+8. **File viewer deep-link** — click a citation chip → jump to the passage in the source file  
+
+With more time I would **not** rebuild this as a multi-tenant SaaS clone of my other products. The assignment rewards a clear, honest MVP; I’d spend the extra hours on eval and ingest reliability, not chrome.
 
 ---
 
 ## i. Note on voice
 
-This README reflects the actual trade-offs in this repository (hybrid RRF, sync ingest, Voyage 1024, thin TS modules). It is not a generic “RAG best practices” dump.
+Sections above are my trade-offs for *this* repo: hybrid RRF, sync ingest for demo speed, Voyage 1024, thin modules, AI for velocity with human ownership of retrieval and guardrails. If something reads like a generic RAG checklist, that was not the intent — open an issue and I’ll clarify.
 
 ---
 
