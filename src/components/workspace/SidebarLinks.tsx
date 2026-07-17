@@ -5,7 +5,7 @@ import Link from 'next/link';
 const LINKS = [
   { href: '/about', label: 'About' },
   { href: '/', label: 'Workspace' },
-  { href: 'https://github.com', label: 'Source' },
+  { href: 'https://github.com/dineufeld/citebase', label: 'Source' },
 ];
 
 export function SidebarLinks() {
