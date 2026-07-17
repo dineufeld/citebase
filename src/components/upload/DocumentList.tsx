@@ -56,16 +56,19 @@ export function DocumentList({ documents, onDelete, loading }: Props) {
 
   if (documents.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 px-2 py-6 text-center">
-        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--surface-1)] text-[var(--text-muted)]">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4.5 w-4.5" aria-hidden>
+      <div className="flex h-full flex-col items-center justify-center gap-4 px-4 text-center">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-dashed border-[var(--border)] bg-[var(--surface-1)] text-[var(--text-muted)]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-7 w-7" aria-hidden>
             <path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M14 2v6h6" />
+            <path d="M12 12v6M9 15l3-3 3 3" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <p className="text-xs leading-relaxed text-[var(--text-muted)]">
-          Upload a PDF, TXT, or Markdown file to build your knowledge base.
-        </p>
+        <div>
+          <p className="text-sm font-medium text-[var(--text)]">No documents yet</p>
+          <p className="mt-1 text-xs leading-relaxed text-[var(--text-muted)]">
+            Upload a PDF, TXT, or Markdown file.
+          </p>
+        </div>
       </div>
     );
   }
