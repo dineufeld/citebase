@@ -4,7 +4,7 @@ import { AboutHeaderActions } from '@/components/workspace/AboutHeaderActions';
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[var(--bg)] text-[var(--text)]">
+    <div className="relative min-h-screen overflow-y-auto bg-[var(--bg)] text-[var(--text)]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-40"
