@@ -131,13 +131,25 @@ export function ChatPanel({ readyCount, emptyState, onPickFiles, filesBusy }: Pr
           <SuggestedPrompts onSelect={(text) => setInput(text)} />
         )}
         {messages.length === 0 && !emptyState && !canChat && (
-          <div className="rounded-xl border border-dashed border-[var(--border)] bg-[var(--surface-1)] px-4 py-8 text-center">
-            <p className="text-sm font-medium text-[var(--text)]">
-              Grounded answers with citations
-            </p>
-            <p className="mt-2 text-xs text-[var(--text-muted)]">
-              Try: “What are the refund rules?” or “Summarize the onboarding steps.”
-            </p>
+          <div className="mx-auto flex w-full max-w-md flex-col items-center gap-4 px-4 py-10 text-center">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--surface-1)] text-[var(--text-muted)]">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-6 w-6" aria-hidden>
+                <path d="M14.5 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V7.5L14.5 2z" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M14 2v6h6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-[var(--text)]">Indexing your documents</p>
+              <p className="mt-1.5 text-xs leading-relaxed text-[var(--text-muted)]">
+                We&rsquo;re extracting text and building embeddings for hybrid search.
+                You&rsquo;ll be able to ask questions once indexing completes.
+              </p>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
+              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" style={{ animationDelay: '200ms' }} />
+              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" style={{ animationDelay: '400ms' }} />
+            </div>
           </div>
         )}
 
