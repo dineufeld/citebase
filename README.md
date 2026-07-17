@@ -4,6 +4,8 @@
 
 This is a fullstack interview assignment (Option 1: classic RAG). Built as a small, intentional greenfield app so reviewers can clone, run, and read the code without a multi-product monorepo.
 
+**Live demo:** [citebase-dun.vercel.app](https://citebase-dun.vercel.app/)
+
 ---
 
 ## a. Quick setup
